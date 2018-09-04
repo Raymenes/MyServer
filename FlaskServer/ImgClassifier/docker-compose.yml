@@ -1,0 +1,17 @@
+# this is 1 file to control all the images/containers and everything in this docker
+# for our case, it's db and web
+
+# latest docker compose version
+version: "3"
+
+services:
+  # this is saying - web is a service and you can build it from the given path
+  web:
+    build: ./web
+    ports:
+      - "5000:5000"
+    links:
+      - db
+
+  db:
+    build: ./db
