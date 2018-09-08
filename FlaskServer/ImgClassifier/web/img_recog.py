@@ -49,7 +49,6 @@ def verify_user_credential(posted_data, username, password):
 
     return True, None
 
-
 # @param posted_date - json data
 # @param expected_params - list of string as expected fields in posted_date
 def validate_posted_data(posted_data, expected_params):
@@ -58,7 +57,6 @@ def validate_posted_data(posted_data, expected_params):
             return False
 
     return True
-
 
 def subtract_user_token(username, number):
     if not user_exist(username):
@@ -80,6 +78,9 @@ def subtract_user_token(username, number):
     users.update({"username": username}, {"$set": {"tokens": remaining}})
 
     return True, None
+
+
+""" End Helper functions """
 
 
 class Register(Resource):

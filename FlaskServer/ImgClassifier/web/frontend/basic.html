@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!--This is what displayed on the browser tab-->
+    <title>Rui's Page</title>
+    <!--rel stands for relationship-->
+    <link rel="stylesheet" href="basic.css">
+    <!--www.getbootstrap.com-->
+</head>
+
+<body>
+    Hello world
+    <h1> Heading One </h1>
+    <h2> Heading Two </h2>
+    <h3> Heading Three </h3>
+
+    <p> here is the paragraph </p>
+
+    <!-- for more references, visit: https://developer.mozilla.org/en-US/docs/Web/HTML -->
+    <p> New semantics: <strong>bold or strong</strong> and <em>italic or emphasis</em> </p>
+
+    <!--ordered list items-->
+    <ol>
+        <!--single list item-->
+        <li>breakfast</li>
+        <li>lunch</li>
+        <li>afternoon tea</li>
+        <li>dinner</li>
+    </ol>
+
+    <!--unordered list items-->
+    <ul>
+        <!--single list item-->
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+
+    <!--nested list items-->
+    <ul>
+        <!--single list item-->
+        <li>item 1</li>
+        <li>item 2</li>
+        <ul>
+            <li>item a</li>
+            <li>item b</li>
+        </ul>
+    </ul>
+
+    <p>This is a paragraph outside the div</p>
+    <div class="">
+        <p>I'm inside a div</p>
+        <p>Also inside a div</p>
+        <p>Here is some text with <span class="">special style that is only for a small scale object within</span> some other text</p>
+    </div>
+
+
+    <a href="https://www.tensorflow.org/tutorials/">My link here</a>
+    <br>
+
+    <form action="https://www.douban.com/" method="get">
+        <h1>log in</h1>
+        <h2>please input email and secret code:</h2>
+
+        <label for="email_tag">Email:</label>
+        <input id="email_tag" type="text" name="user_email" value="???@???">
+        <br>
+        <label for="password_tag">Password:</label>
+        <input id="password_tag" type="password" name="user_password" placeholder="password">
+
+        <input type="submit" name="" value="Enter">
+    </form>
+
+    <br>
+
+    <form>
+        <h3>Do you have a dog</h3>
+        <!--sharing the same name makes multiple radio button connected and exclusive-->
+        <label for="dog_choice_yes">Yes:</label>
+        <input id="dog_choice_yes" name="dog_choice" type="radio" value="yes">
+        <label for="dog_choice_no">No:</label>
+        <input id="dog_choice_no" name="dog_choice" type="radio" value="no">
+
+        <p>How clean is your house (1-3)</p>
+        <select name="house_cleanness">
+            <option value="great">3</option>
+            <option value="ok">2</option>
+            <option value="bad">1</option>
+        </select>
+
+        <p>Any other comments?</p>
+        <textarea name="comment" rows="10" cols="30"></textarea>
+
+        <br>
+        <input type="submit" name="" value="Submit">
+    </form>
+
+    <br>
+    <!--self closing tag-->
+    <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2d7b1bd980752bb3ea0a259f528eae78&auto=format&fit=crop&w=1950&q=80">
+    <img src="../resource/surprised_cat.jpeg">
+    <img src="missing.jpeg" alt="uh oh image is missing">
+
+
+</body>
+
+</html>
