@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2> Welcome to Sign Up page</h2>
+        <a href="{{ url_for('signup_form')}}">Sign Up</a>
+
+        <form action="{{url_for('thank_you')}}">
+            <label for="email_tag">Email:</label>
+            <input id="email_tag" type="text" name="user_email">
+            <br>
+            <label for="password_tag">Password:</label>
+            <input id="password_tag" type="password" name="user_password">
+            <input type="submit" name="" value="Enter">
+        </form>
+    </div>
+{% endblock %}

@@ -7,7 +7,7 @@ Retrieve stored sentence for 1 token
 
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template, make_response
 from flask_restful import Api, Resource
 
 from pymongo import MongoClient
@@ -202,6 +202,15 @@ class Experiment(Resource):
             })
 
 
+class Hello(Resource):
+    def get(self):
+        input_name = request.args.get("name")
+        if input_name is None:
+            input_name = "Stranger"
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('basic_notes.html', greet_name=input_name), 200, headers)
+
+
 def validatePostedData(posted_data, expected_params):
     for param in expected_params:
         if param not in posted_data:
@@ -236,12 +245,11 @@ api.add_resource(Register, "/register")
 api.add_resource(Store, "/store")
 api.add_resource(Retrieve, "/retrieve")
 api.add_resource(Experiment, "/test")
+api.add_resource(Hello, "/hello")
 
 if __name__ == "__main__":
     # this is to specify the run on the local host of the machine, not the docker system
-    app.run(host="0.0.0.0")
-    app.run(debug=True)
-    #app.run()
+    app.run(host="0.0.0.0", debug=True)
 
 """
 from flask import Flask, jsonify, request

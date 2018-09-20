@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+
+        <h2>Thank you. Here is the info you gave:</h2>
+        <ul>
+            <li>{{session['breed']}}</li>
+            <li>{{session['neutered']}}</li>
+            <li>{{session['mood']}}</li>
+            <li>{{session['food_choice']}}</li>
+        </ul>
+
+    </div>
+{% endblock %}

@@ -1,1 +1,1 @@
-{"zebra": "0.9543971", "hartebeest": "0.0012276615", "ostrich, Struthio camelus": "0.0007564067", "tiger, Panthera tigris": "0.0007485752", "impala, Aepyceros melampus": "0.0006593373"}
+{"Egyptian cat": "0.87012696", "tabby, tabby cat": "0.06622882", "tiger cat": "0.02586279", "lynx, catamount": "0.0006647716", "carton": "0.0003992987"}

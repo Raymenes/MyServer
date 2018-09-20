@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<title>Upload File</title>
+<h1>Photo Upload</h1>
+<form method="POST" enctype="multipart/form-data">
+     {{ form.hidden_tag() }}
+     {{ form.photo }}
+     {% for error in form.photo.errors %}
+         <span style="color: red;">{{ error }}</span>
+     {% endfor %}
+     {{ form.submit }}
+</form>
+
+{% if results %}
+<br>
+<p>Predicted results: {{ results }}</p>
+{% endif %}
+
+{% if file_url %}
+<br>
+<img src="{{ file_url }}">
+{% endif %}

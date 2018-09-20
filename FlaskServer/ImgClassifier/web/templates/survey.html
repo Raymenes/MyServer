@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {{form.breed.label}}{{form.breed}}
+            <br>
+            {{form.neutered.label}}{{form.neutered}}
+            <br>
+            {{form.food_choice.label}}{{form.food_choice}}
+            <br>
+            {{form.mood.label}}{{form.mood}}
+            <br>
+            {{form.feedback.label}}{{form.feedback}}
+            <br>
+            {{form.imgFile.label}}{{form.imgFile}}
+            {% for error in form.imgFile.errors %}
+                 <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            <br>
+            {{form.submit()}}
+        </form>
+
+
+
+        {% for mess in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>{{mess}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
