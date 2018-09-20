@@ -1,0 +1,100 @@
+[{
+  "label": "<1",
+  "tot": 23455,
+  "top_causes":[
+    {"label":"Congenital Anomalies","value":4825},
+    {"label":"Short Gestation","value":4084},
+    {"label":"SIDS","value":1568},
+    {"label":"Maternal Pregnancy Comp.","value":1522},
+    {"label":"Unintentional Injury","value":1291}
+  ]
+},
+{
+  "label": "1-4",
+  "tot": 3965,
+  "top_causes":[
+    {"label":"Unintentional Injury","value":1235},
+    {"label":"Congenital Anomalies","value":435},
+    {"label":"Homicide","value":369},
+    {"label":"Malignant Neoplasms","value":354},
+    {"label":"Heart Disease","value":147}
+  ]
+},
+{
+  "label": "5-14",
+  "tot": 5411,
+  "top_causes":[
+    {"label":"Unintentional Injury","value":1518},
+    {"label":"Malignant Neoplasms","value":865},
+    {"label":"Suicide","value":409},
+    {"label":"Congenital Anomalies","value":337},
+    {"label":"Homicide","value":298}
+  ]
+},
+{
+  "label": "15-24",
+  "tot": 30494,
+  "top_causes":[
+    {"label":"Unintentional Injury","value":12514},
+    {"label":"Suicide","value":5491},
+    {"label":"Homicide","value":4783},
+    {"label":"Malignant Neoplasms","value":1469},
+    {"label":"Heart Disease","value":997}
+  ]
+},
+{
+  "label": "25-34",
+  "tot": 51517,
+  "top_causes":[
+    {"label":"Unintentional Injury","value":19795},
+    {"label":"Suicide","value":6947},
+    {"label":"Homicide","value":4863},
+    {"label":"Malignant Neoplasms","value":3704},
+    {"label":"Heart Disease","value":3522}
+  ]
+},
+{
+  "label": "35-44",
+  "tot": 73088,
+  "top_causes":[
+    {"label":"Unintentional Injury","value":17818},
+    {"label":"Malignant Neoplasms","value":10909},
+    {"label":"Heart Disease","value":10387},
+    {"label":"Suicide","value":6936},
+    {"label":"Homicide","value":2895}
+  ]
+},
+{
+  "label": "45-54",
+  "tot": 174494,
+  "top_causes":[
+    {"label":"Malignant Neoplasms","value":43054},
+    {"label":"Heart Disease","value":34248},
+    {"label":"Unintentional Injury","value":21499},
+    {"label":"Liver Disease","value":8874},
+    {"label":"Suicide","value":8751}
+  ]
+},
+{
+  "label": "55-64",
+  "tot": 357785,
+  "top_causes":[
+    {"label":"Malignant Neoplasms","value":116122},
+    {"label":"Heart Disease","value":76872},
+    {"label":"Unintentional Injury","value":19488},
+    {"label":"Chronic Low. Respiratory Disease","value":17457},
+    {"label":"Diabetes Mellitus","value":14166}
+  ]
+},
+{
+  "label": ">65",
+  "tot": 1992283,
+  "top_causes":[
+    {"label":"Heart Disease","value":507138},
+    {"label":"Malignant Neoplasms","value":419389},
+    {"label":"Chronic Low. Respiratory Disease","value":131804},
+    {"label":"Cerebrovascular","value":120156},
+    {"label":"Alzheimer's Disease","value":109495}
+  ]
+}
+]

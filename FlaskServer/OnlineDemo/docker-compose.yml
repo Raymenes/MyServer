@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "443:4999"
+      - "8080:4999"
+
+  db:
+    build: ./db

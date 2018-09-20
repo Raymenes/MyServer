@@ -1,0 +1,10 @@
+Flask
+flask_uploads
+flask_wtf
+pymongo
+bcrypt
+wtforms
+numpy
+tensorflow
+requests
+twilio

@@ -1,0 +1,129 @@
+Age,Gender,Activity,Duration
+1519,F,"Personal Care, including Sleep",10.70
+1519,M,"Personal Care, including Sleep",10.41
+1519,F,Eating and Drinking,1.08
+1519,M,Eating and Drinking,0.97
+1519,F,Household Activities,0.79
+1519,M,Household Activities,0.57
+1519,F,Working,0.97
+1519,M,Working,1.32
+1519,F,Education,4.07
+1519,M,Education,3.74
+1519,F,Leisure and Sports,4.63
+1519,M,Leisure and Sports,5.75
+1519,F,Purchasing,0.60
+1519,M,Purchasing,0.31
+1519,F,"Phone Calls, E-mail",0.24
+1519,M,"Phone Calls, E-mail",0.18
+2024,F,"Personal Care, including Sleep",10.27
+2024,M,"Personal Care, including Sleep",10.03
+2024,F,Eating and Drinking,1.07
+2024,M,Eating and Drinking,0.94
+2024,F,Household Activities,1.47
+2024,M,Household Activities,0.80
+2024,F,Working,3.63
+2024,M,Working,4.77
+2024,F,Education,1.44
+2024,M,Education,0.55
+2024,F,Leisure and Sports,4.01
+2024,M,Leisure and Sports,5.57
+2024,F,Purchasing,0.70
+2024,M,Purchasing,0.59
+2024,F,"Phone Calls, E-mail",0.15
+2024,M,"Phone Calls, E-mail",0.08
+2534,F,"Personal Care, including Sleep",9.80
+2534,M,"Personal Care, including Sleep",9.21
+2534,F,Eating and Drinking,1.21
+2534,M,Eating and Drinking,1.26
+2534,F,Household Activities,1.88
+2534,M,Household Activities,1.25
+2534,F,Working,3.99
+2534,M,Working,5.79
+2534,F,Education,0.28
+2534,M,Education,0.00
+2534,F,Leisure and Sports,3.73
+2534,M,Leisure and Sports,4.55
+2534,F,Purchasing,0.88
+2534,M,Purchasing,0.50
+2534,F,"Phone Calls, E-mail",0.11
+2534,M,"Phone Calls, E-mail",0.13
+3544,F,"Personal Care, including Sleep",9.43
+3544,M,"Personal Care, including Sleep",9.02
+3544,F,Eating and Drinking,1.11
+3544,M,Eating and Drinking,1.19
+3544,F,Household Activities,2.55
+3544,M,Household Activities,1.23
+3544,F,Working,4.13
+3544,M,Working,6.05
+3544,F,Education,0.10
+3544,M,Education,0.10
+3544,F,Leisure and Sports,3.74
+3544,M,Leisure and Sports,4.21
+3544,F,Purchasing,0.82
+3544,M,Purchasing,0.60
+3544,F,"Phone Calls, E-mail",0.12
+3544,M,"Phone Calls, E-mail",0.11
+4554,F,"Personal Care, including Sleep",9.62
+4554,M,"Personal Care, including Sleep",8.82
+4554,F,Eating and Drinking,1.06
+4554,M,Eating and Drinking,1.16
+4554,F,Household Activities,2.37
+4554,M,Household Activities,1.56
+4554,F,Working,3.89
+4554,M,Working,5.77
+4554,F,Education,0.12
+4554,M,Education,0.04
+4554,F,Leisure and Sports,4.35
+4554,M,Leisure and Sports,4.83
+4554,F,Purchasing,0.88
+4554,M,Purchasing,0.75
+4554,F,"Phone Calls, E-mail",0.17
+4554,M,"Phone Calls, E-mail",0.11
+5564,F,"Personal Care, including Sleep",9.56
+5564,M,"Personal Care, including Sleep",9.12
+5564,F,Eating and Drinking,1.16
+5564,M,Eating and Drinking,1.22
+5564,F,Household Activities,2.52
+5564,M,Household Activities,1.55
+5564,F,Working,2.86
+5564,M,Working,4.60
+5564,F,Education,0.06
+5564,M,Education,0.00
+5564,F,Leisure and Sports,5.25
+5564,M,Leisure and Sports,5.93
+5564,F,Purchasing,1.01
+5564,M,Purchasing,0.69
+5564,F,"Phone Calls, E-mail",0.24
+5564,M,"Phone Calls, E-mail",0.11
+6574,F,"Personal Care, including Sleep",9.61
+6574,M,"Personal Care, including Sleep",9.43
+6574,F,Eating and Drinking,1.27
+6574,M,Eating and Drinking,1.24
+6574,F,Household Activities,3.05
+6574,M,Household Activities,2.00
+6574,F,Working,0.97
+6574,M,Working,1.70
+6574,F,Education,0.00
+6574,M,Education,0.00
+6574,F,Leisure and Sports,6.35
+6574,M,Leisure and Sports,7.58
+6574,F,Purchasing,1.12
+6574,M,Purchasing,0.78
+6574,F,"Phone Calls, E-mail",0.28
+6574,M,"Phone Calls, E-mail",0.12
+75,F,"Personal Care, including Sleep",10.28
+75,M,"Personal Care, including Sleep",9.78
+75,F,Eating and Drinking,1.33
+75,M,Eating and Drinking,1.48
+75,F,Household Activities,2.58
+75,M,Household Activities,2.02
+75,F,Working,0.17
+75,M,Working,0.00
+75,F,Education,0.00
+75,M,Education,0.00
+75,F,Leisure and Sports,7.26
+75,M,Leisure and Sports,8.06
+75,F,Purchasing,0.92
+75,M,Purchasing,0.76
+75,F,"Phone Calls, E-mail",0.32
+75,M,"Phone Calls, E-mail",0.19

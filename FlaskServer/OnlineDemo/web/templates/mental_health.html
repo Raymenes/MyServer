@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mental Health</title>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js">
+  </script>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+  /* Legend Font Style */
+     body {
+			 font-family: "Open Sans Condensed";
+			 margin: 60px 50px 30px 80px;
+		 }
+     h1 {
+			 font-style: normal;
+			 text-transform: uppercase;
+			 font-weight: 300;
+			 font-size: 36pt;
+			 position:relative;
+		 }
+     .axis path, .axis line {
+			 fill: none;
+			 stroke: #000;
+			 shape-rendering: crispEdges;
+		 }
+     .label{
+			 font-family: "Open Sans Condensed";
+		 }
+     h2{
+			 font-weight:100;
+			 font-size:24pt;
+		 }
+
+		 #title_h3, #title_h2{
+			 margin-top: 0;
+			 margin-bottom: 0;
+		 }
+     .text{
+			 width:650px;
+			 margin:auto;
+			 margin-bottom:30px;
+			 font-size:13px;
+		 }
+		 div.fixed {
+			 position: fixed;
+			 bottom: 0;
+			 right: 0;
+			 width: 100px;
+			 /* border: 3px solid #ccc; */
+		 }
+		 #icons_div, #icons_div2, #usMap,#heatMap {
+			 white-space : nowrap;
+			 overflow : hidden;
+		 }
+		 .icon_container{
+			 display: inline-block;
+			 white-space: normal;
+		 }
+		 .inplot_text{
+			 fill:#FF80AB;
+			 color:#FF80AB;
+		 }
+		 .factor_sub {
+    	display: inline-block;
+    	width:45%;
+   	}
+   	.factor_sub_sub{
+    	display: inline-block;
+    	width:45%;
+   	}
+		.Variant {
+			font-weight: 600; color: #555;
+		}
+   </style>
+
+</head>
+
+<body>
+	<p id="title" style = "font-weight: 300;
+	font-size: 36pt">DIVE INTO MENTAL HEALTH -- 2016
+	  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		&nbsp<text style="font-size: 12px">Presented by <a href="https://github.com/yawendeng1/3300Proj1">The Mosaic </a></text>
+		<img src="{{url_for('static', filename='Proj_Icon.svg')}}" alt="Project Icon" width="100" align="bottom"></p>
+
+		<h2 id="title_h2" style="padding-left: 0px;color:#999">A look into <span class="Variant">Mental Health Status</span> of U.S. residents and possible underlying <span class="titleVariant">Factors</span>.</h2>
+
+		<h3 id="title_h3" style="color:#999">
+			Indicated by number of days not feeling mentally good within <span class="inplot_text" style="font-size:30px">30 days</span>, for the year 2016.</h3>
+
+	<h2>Overivew</h2>
+	<svg class = "sessionT" width = "900", height = "60">
+		<rect class = "inplot_text" x="0", y = "3" width="20" height="20"/>
+		<text x="40" y="22" style = "font-weight:100;font-size:18pt">
+			Average Days Not In Good Mental Status</text>
+		<text x="40" y="55" style = "font-size:14pt">
+			This map shows the mental health status of US Resident per state, as the average number of days not in good mental status within 30 days.</text>
+	</svg>
+	<div id="usMap" >
+	<!-- reference:http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922 -->
+	</div>
+
+	<p id="subtitle"><h2>Factors Behind Mental Health</h2></p>
+	<svg width = "900", height = "60">
+		<rect class = "inplot_text" x="0", y = "5" width="20" height="20"/>
+		<text x="40" y="22" style = "font-weight:100;font-size:18pt">
+			Sleep vs. Age</text>
+		<text x="40" y="55" style = "font-size:14pt">
+			This graph shows the average #days people are not in good mental status (out of 30 days), influenced by <tspan class="Variant" style="font-size:20px">hours of sleep</tspan> (1~16hr/day) and <tspan class="Variant" style="font-size:20px">age</tspan> (18-78 yr).
+		</text>
+	</svg>
+	<div id="heatMap">
+	</div>
+
+	<svg width = "900", height = "50">
+		<rect class = "inplot_text" x="0", y = "15" width="20" height="20"/>
+		<text x="40" y="33" style = "font-weight:100;font-size:18pt">
+			Gender</text>
+
+	</svg>
+	<div id="factor">
+     <div id="icons_div"> </div>
+     <svg width="400" height="50">
+     <rect class = "inplot_text" x="0", y = "15" width="20" height="20"/>
+		<text x="40" y="33" style = "font-weight:100;font-size:18pt">
+			Current Smoking / Heavy Drinking</text>
+	</svg>
+     <div id="icons_div2"> </div>
+		 <svg id="habit_explain" width="600" height="45">
+     <div class="explain" id="factor_explain" style="text-align:center">
+     <p style="font-size:12px">sourse: <a href="https://www.cdc.gov/brfss/annual_data/annual_2016.html">2016 BRFSS Survey Data </a> </p>
+		 <p style="font-size:12px"> Presented by <a href="https://github.com/yawendeng1/3300Proj1">The Mosaic </a></p>
+  	 </div>
+
+ </div>
+
+<!-- State Grid Map -->
+<!-- textscript of the grid_map -->
+<script id="grid" type="text/plain">
+                              ME
+               WI          VT NH
+WA ID MT ND MN IL MI    NY MA
+OR NV WY SD IA IN OH PA NJ CT RI
+CA UT CO NE MO KY WV VA MD DE
+   AZ NM KS AR TN NC SC
+         OK LA MS AL GA
+HI AK    TX             FL
+</script>
+
+<script type="text/javascript">
+
+/*  This visualization was made possible by modifying code provided by:
+
+Scott Murray, Choropleth example from "Interactive Data Visualization for the Web"
+https://github.com/alignedleft/d3-book/blob/master/chapter_12/05_choropleth.html
+
+Malcolm Maclean, tooltips example tutorial
+http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html
+ */
+
+//Width and height of grid_map
+var width1 = 690;
+var height1 = 500;
+
+//Create SVG element and append grid_map to the SVG
+var svg = d3.select("#usMap")
+			.append("svg")
+			.attr("width", width1)
+			.attr("height", height1);
+
+var svgText1 = d3.select("#usMap")
+						.append("svg")
+						.attr("width", 200)
+						.attr("height", height1);
+
+//states is an array of textscript of the grid_map
+var states = [];
+
+d3.select("#grid").text().split("\n").forEach(function(line, i) {
+  var re = /\w+/g, m;
+  while (m = re.exec(line)) states.push({
+    name: m[0],
+    x: m.index / 3,
+    y: i
+  });
+});
+
+// Define linear scale for output
+color1 = d3.scaleLinear()
+     .interpolate(d3.interpolateHcl)
+     .range([d3.rgb("#f2f6f7"), d3.rgb("#110080")])
+		 .domain([8, 15]);
+
+color = d3.scaleLinear()
+     .interpolate(d3.interpolateHcl)
+     .range([d3.rgb("#f2f6f7"), d3.rgb("#110080")])
+		 .domain([6.5, 25]);
+
+var gridWidth = d3.max(states, function(d) { return d.x; }) + 1,
+		gridHeight = d3.max(states, function(d) { return d.y; }) + 1,
+	  cellSize = 50;
+
+var mData;
+
+// Load data for every state!
+d3.csv("{{url_for('static', filename='MH16_1.csv')}}", function(data) {
+     mData = data;
+
+		 // Loop through each state data value in the .csv file
+		 for (var i = 0; i < mData.length; i++) {
+
+		 	// Grab State Name
+		 	var dataState = mData[i].ss;
+
+		 	// Grab number of days for mental health variable
+		 	var dataValue = mData[i].mhn;
+
+		 	// Find the corresponding state inside the data
+		 	for (var j = 0; j < states.length; j++)  {
+		 		var StateId = states[j].name;
+
+		 		if (dataState == StateId) {
+
+		 		// Copy the data value into the states array
+		 		states[j].mhn = dataValue;
+		 		// Stop looking through the states array
+		 		break;
+		 		}
+		 	}
+		}
+
+    var state = svg.append("g")
+		    .attr("class","mapGrid")
+		 	  .attr("transform", "translate(" + width1/2+ "," + height1/2 + ")")
+		 	  .selectAll(".state")
+		 	  .data(states)
+		 	  .enter().append("g")
+		 	  .attr("transform", function(d) { return "translate(" + (d.x - gridWidth/ 2) * cellSize + "," + (d.y - gridHeight / 2) * cellSize + ")"; });
+
+		 state.append("rect")
+		 	   .attr("x", -cellSize / 2)
+		 	   .attr("y", -cellSize / 2)
+		 	   .attr("width", cellSize - 1)
+		 	   .attr("height", cellSize - 1)
+				 .style("fill", function(d) { return color1(d.mhn)});
+
+		 state.append("text")
+		 		 .attr("dy", ".25em")
+				 .style("text-anchor","middle")
+		 		 .text(function(d) { return d.name; })
+		 		 .style("fill", "white");
+
+		 // Color legend.
+		 var colorLegend = d3.legendColor()
+		         .labelFormat(d3.format(".0f"))
+		         .scale(color1)
+		         .shapePadding(5)
+		         .shapeWidth(20)
+		         .shapeHeight(20)
+		         .labelOffset(12);
+
+		 svg.append("g")
+		    .attr("transform", function(d, i) { return "translate(640," + (i * 20 + 329)+ ")"; })
+		    .call(colorLegend);
+
+     //add example:Wisconsin
+		 svg.append("line")
+			 	.attr("x1", 330)
+			 	.attr("y1", 100)
+			 	.attr("x2", 260)
+			 	.attr("y2", 60)
+			 	.attr("stroke", "#ccc")
+			 	.attr("stroke-width", 2);
+
+		 svg.append("line")
+				.attr("x1", 260.5)
+				.attr("y1", 60.5)
+				.attr("x2", 160)
+				.attr("y2", 60.5)
+				.attr("stroke", "#ccc")
+				.attr("stroke-width", 2);
+
+		 svg.append("text")
+		    .attr("id","worstState")
+		    .text("Worst:  ")
+	 			.attr("x", 160)
+	 			.attr("y", 55)
+	 			.attr("stroke-width", 1);
+
+     d3.select("#worstState").append("tspan")
+		 	 .text("14")
+		 	 .attr("fill", "#243B83")
+			 // .attr("class","inplot_text")
+			 .attr("font-size", 40);
+
+		 svg.append("text")
+ 				 .text("days")
+ 				 .attr("x", 235)
+ 				 .attr("y", 55)
+ 				 .attr("stroke-width", 1);
+
+    //add example:New York
+		 svg.append("line")
+				.attr("x1", 480)
+				.attr("y1", 150)
+				.attr("x2", 450)
+				.attr("y2", 80)
+				.attr("stroke", "#ccc")
+				.attr("stroke-width", 1.5);
+
+		 svg.append("line")
+				.attr("x1", 370)
+				.attr("y1", 80.5)
+			  .attr("x2", 450)
+				.attr("y2", 80.5)
+			  .attr("stroke", "#ccc")
+				.attr("stroke-width", 1.5);
+
+		 svg.append("text")
+		       .attr("id","bestState")
+					 .text("Best:  ")
+					 .attr("x", 380)
+					 .attr("y", 75)
+					 .attr("stroke-width", 1);
+
+			d3.select("#bestState").append("tspan")
+			 	 .text("8")
+			 	 .attr("fill", "#243B83")
+				 // .attr("class","inplot_text")
+			 	 .attr("font-size", 40);
+
+			svg.append("text")
+				 .text("days")
+				 .attr("x", 430)
+				 .attr("y", 75)
+				 .attr("stroke-width", 1);
+});
+
+	svgText1.append("text")
+					.attr("class","explin")
+					.text("U.S. Average:")
+					.attr("x",0)
+					.attr("y",100)
+					.attr("stroke-width", 1);
+
+	svgText1.append("text")
+				 .text("11")
+				 .attr("x", 70)
+				 .attr("y", 100)
+				 .attr("fill", "#243B83")
+			 	 .attr("font-size", 40);
+
+	svgText1.append("text")
+				 .text("days")
+				 .attr("x", 102)
+				 .attr("y", 100)
+				 .attr("stroke-width", 1);
+
+
+	// svgText1.append("text")
+	// 				.attr("class","explin")
+	// 				.text("U.S. Average:")
+	// 				.attr("x",0)
+	// 				.attr("y",200)
+	// 				.attr("stroke-width", 1);
+
+	svgText1.append("text")
+				 .text("32.6%")
+				 .attr("x", 0)
+				 .attr("y", 150)
+				 .attr("fill", "#243B83")
+			 	 .attr("font-size", 40);
+
+	svgText1.append("text")
+				 .text("have more than")
+				 .attr("x", 86)
+				 .attr("y", 150)
+				 .attr("stroke-width", 1);
+
+	svgText1.append("text")
+				 .text("15 days of mentally bad condition")
+				 .attr("x", 0)
+				 .attr("y", 180)
+				 .attr("stroke-width", 1);
+
+</script>
+
+<!-- Heatmap: SleepTime and Mental Health -->
+<script>
+var width2 = 760;
+var height2 = 550;
+
+var margin = { top: 20, right: 100, bottom: 100, left: 60 },
+    width2 = width2 - margin.left - margin.right,
+    height2 = height2 - margin.top - margin.bottom,
+    gridSize = Math.floor(Math.min(height2/13, width2 / 16)),
+    colors = ["#f2f0f7","#54278f"];
+
+//arrays storing the value of 13 age groups and 16 sleep groups
+var ageValues = Array(13);
+var sleepValues = Array(16)
+
+for(var i=0; i<ageValues.length; i++) {
+	ageValues[i] = 18 + i*5;
+}
+
+for (var i=0; i<sleepValues.length; i++) {
+	sleepValues[i] = i;
+}
+
+var svg2 = d3.select("#heatMap").append("svg")
+			.attr("width", width2 + margin.left + margin.right)
+              .attr("height", height2 + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//create y axis labels
+var ageLabels = svg2.selectAll("ageLabel")
+					.data(ageValues)
+					.enter().append("text")
+					.attr("class", "label")
+					.text(function(d) {return d; })
+					.attr("x", 0)
+					.attr("y", function(d, i) {return (ageValues.length - i)*gridSize; })
+					.style("text-anchor", "middle")
+				  .style("dominant-baseline", "middle")
+				  .style("font-size", "15")
+				  .attr("transform", "translate(-20," + (gridSize / 2 * -1) + ")");
+
+var yLabel = svg2.append("text")
+                 .attr("class", "label")
+                 .text("Age")
+                 .attr("x", -50)
+                 .attr("y", ageValues.length/2 * gridSize)
+                 .style("text-anchor", "middle")
+                 .style("dominant-baseline", "middle")
+                 .style("font-size", "20")
+                 .attr("transform", "rotate(-90, -50," + ageValues.length/2 * gridSize +" )");
+
+//create x axis labels
+var xLabel = svg2.append("text")
+  .attr("class", "label")
+  .text("Sleep(hrs)")
+  .attr("x", sleepValues.length/2 * gridSize)
+  .attr("y", ageValues.length * gridSize)
+  .style("text-anchor", "middle")
+  .style("dominant-baseline", "middle")
+  .style("font-size", "20")
+  .attr("transform", "translate(0,40)");
+
+var sleepLabels = svg2.selectAll("sleepLabel")
+  .data(sleepValues)
+  .enter().append("text")
+    .attr("class", "label")
+    .text(function(d) { return d+1; })
+    .attr("x", function(d, i) { return i * gridSize; })
+    .attr("y", gridSize*13)
+    .style("text-anchor", "middle")
+    .style("font-size", "15")
+    .attr("transform", "translate(" + gridSize / 2 + ", 15)");
+
+// [paseline(d)] create object for every row of d
+function parseline(d) {
+    	return {
+    		age: d.age,
+    		sleep: d.sleep,
+    		mh: d.mh
+    	};
+  }
+
+//callback function
+d3.csv("{{url_for('static', filename='MH.csv')}}", parseline, function(error, data) {
+    	var heatmap =svg2.selectAll("slpt_mthlth")
+    	.data(data)
+    	.enter().append("rect")
+    	.attr("x", function(d) { return ((d.sleep-1)*gridSize); })
+    	.attr("y", function(d) { return (ageValues.length - d.age)*gridSize; })
+    	.attr("rx", 3)
+    	.attr("ry", 3)
+    	.attr("width", gridSize)
+    	.attr("height", gridSize)
+    	.attr("stroke", "#E6E6E6")
+    	.style("fill", function(d) { return color(d.mh); })
+
+    	heatmap.append("title").text(function(d) { return d.mh; });
+
+    	var slpt_mthlthScale = d3.scaleLinear().domain(color.domain())
+              .range([ageValues.length * gridSize + 0, 0]);
+
+			var colorGridSize = 18;
+			var colorGrid = [];
+
+			// for(var i = 6; i < 26; i++){
+			// 	svg2.append("rect")
+			// 			.attr("x", 545)
+			// 			.attr("y", (i-6)*(colorGridSize+1)-2)
+			// 			.attr("width", colorGridSize)
+			// 			.attr("height", colorGridSize)
+			// 			.style("fill", color(i+0.5));
+
+			// 	if(i%3 == 0) {
+			// 		svg2.append("text")
+			// 				.attr("x", 575)
+			// 				.attr("y", (i-6)*(colorGridSize+1)+13)
+			// 				.text(i + " days");
+			// 	}
+			// }
+
+			var colorLegend = d3.legendColor()
+		         .labelFormat(d3.format(".0f"))
+		         .scale(color)
+		         .shapePadding(5)
+		         .shapeWidth(20)
+		         .shapeHeight(20)
+		         .labelOffset(12);
+
+		 svg2.append("g")
+		    .attr("transform", function(d, i) { return "translate(585," + (i * 20 + 300)+ ")"; })
+		    .call(colorLegend);
+    });
+
+
+		</script>
+
+		<!-- Smoke, Alcohol consumption(Habit) & Mental Health -->
+		<!-- Reference - https://square.github.io/intro-to-d3/examples/ -->
+		<script>
+
+
+		// first two are gender data, later 4 are Smoke, Alcohol consumption(Habit)
+		var factor_data = [
+			{  1: 0.525, 2: 0.137, 3: 0.091, 4: 0.048, 5: 0.199},
+			{  1: 0.516, 2: 0.144, 3: 0.094, 4: 0.052, 5: 0.194},
+		{  1: 0.564, 2: 0.141, 3: 0.087, 4: 0.045, 5: 0.163},
+		{  1: 0.555, 2: 0.143, 3: 0.084, 4: 0.054, 5: 0.164},
+		{  1: 0.367, 2: 0.141, 3: 0.116, 4: 0.066, 5: 0.311},
+		{  1: 0.351, 2: 0.153, 3: 0.123, 4: 0.067, 5: 0.307},
+		];
+
+
+		var paths_ids = ["male","female","milk", "drink", "cigar","both"];
+		var svg_ids = ["male_svg","female_svg","healthy_svg", "drk_svg", "smk_svg", "smkdrk_svg"];
+		var paths = ["M9.81 21.449C4.544 26.714.224 31.123.224 31.213.224 31.319 4.598 35.764 9.953 41.119L19.681 50.848 29.32 41.209C34.621 35.907 38.959 31.498 38.959 31.391 38.959 31.213 19.681 11.845 19.502 11.845 19.449 11.845 15.094 16.164 9.81 21.449Z M2.009 94.312V136.795L7.418 136.76 12.809 136.706 12.862 123.783C12.898 113.698 12.952 110.806 13.13 110.699 13.416 110.52 26.303 110.52 26.589 110.699 26.767 110.806 26.821 113.698 26.857 123.783L26.91 136.706 31.926 136.76 36.942 136.795 37.031 94.455C37.085 71.161 37.103 52.044 37.049 51.954 37.013 51.883 29.106 51.829 19.485 51.829H2.009V94.312Z",
+		"M20.098 20.055C14.814 25.339 10.476 29.766 10.476 29.856 10.476 29.962 14.85 34.407 20.205 39.762L29.933 49.491 39.679 39.745 49.425 29.998 39.893 20.466C34.663 15.219 30.219 10.827 30.04 10.684 29.754 10.453 28.916 11.237 20.098 20.055Z M22.704 51.401C22.65 51.526 22.597 57.22 22.561 64.038L22.525 76.444 21.401 79.568C20.776 81.281 19.973 83.62 19.58 84.744 19.187 85.869 18.384 88.207 17.795 89.921 17.206 91.634 16.403 93.973 16.01 95.097 15.617 96.222 14.814 98.56 14.225 100.274 13.636 101.988 12.833 104.326 12.44 105.45 12.047 106.575 11.244 108.913 10.655 110.627 10.066 112.341 9.263 114.679 8.87 115.803 8.477 116.928 7.674 119.266 7.085 120.98 6.496 122.694 5.693 125.032 5.3 126.156 4.907 127.281 4.104 129.619 3.515 131.333 2.176 135.153 2.087 135.438 2.087 135.831 2.087 136.135 3.515 136.152 31.218 136.117 59.243 136.063 60.367 136.045 60.421 135.742 60.456 135.563 60.314 134.974 60.117 134.439 59.903 133.903 59.582 133.011 59.368 132.44 59.153 131.886 58.921 131.262 58.85 131.065 58.707 130.726 58.475 130.066 57.6 127.674 56.726 125.282 56.494 124.621 56.351 124.282 56.208 123.943 55.976 123.283 55.101 120.891 54.905 120.355 54.584 119.463 54.387 118.927 53.513 116.535 53.281 115.875 53.138 115.536 52.995 115.197 52.763 114.536 51.888 112.144 51.014 109.752 50.782 109.092 50.639 108.753 50.496 108.414 50.264 107.753 49.389 105.361 48.533 102.987 48.283 102.309 48.14 101.97 48.069 101.773 47.908 101.327 47.783 100.988 47.658 100.649 47.497 100.203 47.426 100.006 47.283 99.667 47.033 98.989 46.176 96.615 45.302 94.222 45.07 93.562 44.927 93.223 44.784 92.883 44.552 92.224 43.677 89.832 42.803 87.439 42.571 86.779 42.428 86.44 42.285 86.1 42.053 85.441 41.178 83.049 40.982 82.513 40.661 81.621 40.464 81.085 39.34 77.979 39.286 77.836 38.876 76.837 38.733 76.48 38.679 72.713 38.679 63.985 38.679 54.595 38.626 51.561 38.465 51.401 38.144 51.079 22.811 51.097 22.704 51.401Z",
+		"M11.325 16.822V21.392L5.949 29.514.573 37.654.611 87.786.669 137.936 16.682 137.994 32.694 138.032 32.618 127.338 32.541 116.624 33.712 116.566 34.883 116.509 34.998 123.574C35.075 127.453 35.133 132.31 35.133 134.326V138.032H52.797V37.443L47.997 30.205 43.197 22.947V12.272H11.325V16.822Z M42.813 23.005C42.813 23.734 42.909 24.214 43.082 24.349 43.312 24.541 42.64 25.654 39.05 31.069L34.749 37.558V67.568H32.253V39.536H2.685V37.04L17.334 37.002 31.965 36.944 36.093 30.704 40.24 24.464 26.109 24.368 11.997 24.272 11.939 23.062 11.882 21.872H42.813V23.005Z M35.133 106.717C35.133 108.483 35.075 110.346 35.018 110.845L34.883 111.728H32.637V103.472H35.133V106.717Z",
+		"M29.181 15.208V18.568H9.405V28.936H.957V48.136H8.08L7.965 65.934C7.907 75.746 7.83 95.637 7.773 110.171L7.658 136.61 24.035 136.725C33.04 136.802 44.79 136.878 50.128 136.898L59.843 136.936 59.958 132.923C60.035 130.715 60.093 126.798 60.093 124.226V119.56H71.363L71.478 110.478C71.555 105.506 71.613 91.509 71.613 79.374V57.352H60.285V48.136H69.693V24.136H65.085V11.848H29.181V15.208Z M55.485 49.288V50.44H29.181V48.136H55.485V49.288Z M65.795 71.118C65.718 74.69 65.661 85.403 65.661 94.926V112.264H60.093V98.958C60.093 91.662 60.15 80.949 60.227 75.15L60.342 64.648H65.91L65.795 71.118Z M20.925 86.152V104.2H18.429V68.104H20.925V86.152Z M35.325 75.746C35.325 79.95 35.267 88.072 35.19 93.794L35.075 104.2H32.579L32.694 96.962C32.771 92.987 32.829 84.866 32.829 78.914V68.104H35.325V75.746Z M49.859 73.71C49.782 76.802 49.725 84.923 49.725 91.758V104.2H47.229V94.926C47.229 89.838 47.286 81.717 47.363 76.878L47.478 68.104H49.974L49.859 73.71Z",
+		"M1.421 19.432V27.016L9.254 27.054 17.069 27.112 17.126 29.55 17.184 32.008H29.261V37H.845L.883 41.454.941 45.928 15.398 45.986 29.837 46.024V37H36.173V29.896H29.261V19.528L23.462 19.49 17.645 19.432 17.587 15.63 17.549 11.848H1.421V19.432Z M.883 92.814.941 136.936 15.398 136.994 29.837 137.032V48.712H.845L.883 92.814Z",
+		"M19.189 18.856V26.44L27.022 26.478 34.837 26.536 34.894 28.974 34.952 31.432H47.029V36.04H43.63L43.515 40.494C43.438 42.952 43.381 45.64 43.381 46.446V47.944H47.797V36.424H49.717V47.944H53.922L53.979 42.126C54.018 38.939 54.018 34.754 53.979 32.814L53.941 29.32H47.029V18.76H35.509V11.272H19.189V18.856Z M1.333 41.992V47.944H41.653V36.04H1.333V41.992Z M1.064 73.422C1.006 86.19.91 105.602.853 116.603L.757 136.59 11.278 136.706C17.058 136.782 28.827 136.84 37.429 136.859H53.077L53.134 128.872 53.173 120.904H64.443L64.558 116.43C64.635 113.992 64.693 100.955 64.712 87.496L64.731 63.016 59.048 62.958 53.365 62.92V50.498L38.926 50.382C30.997 50.306 19.246 50.248 12.853 50.248H1.179L1.064 73.422Z M58.875 80.334C58.798 86.133 58.741 96.059 58.741 102.414V113.992H53.173V106.158C53.173 101.858 53.23 91.931 53.307 84.078L53.422 69.832H58.99L58.875 80.334Z M14.005 89.704V106.504H11.509V90.587C11.509 81.851 11.566 74.286 11.624 73.787L11.758 72.904H14.005V89.704Z M28.405 84.482C28.405 90.856 28.347 98.421 28.27 101.282L28.155 106.504H25.659L25.774 104.334C25.851 103.163 25.909 95.598 25.909 87.534V72.904H28.405V84.482Z M42.901 73.096C42.958 73.192 42.958 80.757 42.882 89.896L42.747 106.504H40.251L40.366 93.966C40.443 87.093 40.501 79.528 40.501 77.166V72.904H41.634C42.267 72.904 42.843 72.981 42.901 73.096Z"
+		];
+
+
+		var widths = [160, 140, 170, 220, 170, 120];
+		var icon_lg_svg_width = 110;
+		var labels = ["Male", "Female", "Neither of the two", "Only a Heavy Drinker","Only a Current Smoker", "Both"];
+		 var label_offset = [27, 32, 0, 10, 0, 34];
+
+
+		for (var k = 0; k <= 5; k++) {
+			var sub_data = [factor_data[k]];
+			var divContainer;
+			if (k <=1) {
+				divContainer = d3.select("#icons_div").append("div")
+				.attr("class","icon_container")
+				.attr("id", "icon" + k);
+			} else {
+				divContainer = d3.select("#icons_div2").append("div")
+				.attr("class","icon_container")
+				.attr("id", "icon" + k);
+			}
+
+
+			var sub_svg = divContainer.append("svg")
+				.attr("id",svg_ids[k])
+				.attr("class","icons_center")
+				.attr("width",widths[k])
+				.attr("height","200");
+
+
+			var subPath = sub_svg.append("clipPath")
+					.attr("id", paths_ids[k]);
+
+
+				var singlePath = d3.select("#"+paths_ids[k]).append("path")
+						.attr("d",paths[k])
+						.attr("transform","translate(20, 0)");
+
+			var stack = d3.stack().keys(["5", "4", "3", "2", "1"]);
+
+			var stacked = stack(sub_data);
+
+				// plotting stack
+				var height = 250;
+				var width = sub_svg.attr("width");
+
+					var maxY = d3.max(stacked, function(d) {
+							return d3.max(d, function(d) {
+								 return d[1];
+							});
+					});
+
+					//y scale
+					var yStart = 12;
+					var y = d3.scaleLinear()
+						 .domain([0, maxY])
+						 .range([yStart+125.76, yStart]);
+
+					var colorScale = d3.scaleLinear()
+						 .domain([0,4])
+						 .range([d3.rgb(0,80,175), d3.rgb(155,200, 223)]);
+
+					// bind a <g> tag for each layer
+					var sub_layers = sub_svg.selectAll('g.sub_layers')
+						 .data(stacked, function(d) { return d.key; })
+						 .enter()
+						 .append('g')
+						 .attr('class', 'sub_layers')
+						 .attr('fill', function(d, i) { return colorScale(i); })
+
+					var right_padding = 0;
+
+					// bind a <rect> to each value inside the layer
+					var sub_bars = sub_layers.selectAll('sub_layers')
+							.data(function(d) { return d; })
+						 .enter()
+						 .append('rect')
+						 .attr('x', 0)
+						 .attr('width', width)
+						 .attr('y', (function(d) {
+								return y(d[1]);}))
+						 .attr('height', function(d) {
+								return y(d[0]) - y(d[1]);
+							})
+							//.attr("clip-path", "url(#milk)");
+						 .attr("clip-path",
+						 "url(#" + paths_ids[k] + ")"
+					 );
+
+					// insert labels
+					sub_svg.append("text")
+							 .attr("id","bestState")
+							 .text(labels[k])
+							 .attr("x", label_offset[k])
+							 .attr("y", 170)
+							 .attr("stroke-width", 1);
+
+
+			 // insert legend between two parts
+			 if (k == 1){
+				var divContainer = d3.select("#icons_div").append("div")
+				.attr("class","icon_container")
+				.attr("id", "icon_legend");
+
+				 var icon_lg_svg = divContainer.append("svg")
+					.attr("id","icon_lg_svg")
+					.attr("width",icon_lg_svg_width)
+					.attr("height","200");
+
+				 var texts = ["1-6 ","7-12 ", "13-18", "19-24 ", "25-30 "];
+
+				 var colorList = [];
+					for (var i = 0; i <= 4; i++) {
+						colorList.push(colorScale(i));
+					}
+
+				 var legendScale = d3.scaleOrdinal()
+						.domain(["1-6","7-12", "13-18", "19-24", "25-30"])
+						.range(colorList.reverse());
+
+					 var colorGridSize = 22;
+					 var colorGrid = [];
+
+					 for(var i = 0; i < 5; i++){
+						icon_lg_svg.append("rect")
+							.attr("x", 10)
+							.attr("y", (i)*(colorGridSize+3) + 12)
+							.attr("width", colorGridSize)
+							.attr("height", colorGridSize)
+							.style("fill", colorList[i]);
+
+						icon_lg_svg.append("text")
+								 .attr("x", 35)
+								 .attr("y", (i)*(colorGridSize+3)+25)
+								 .text(texts[i]);
+
+					 }
+
+						}
+				 }
+
+				 // add comments for gender
+				 var gender_text_x = 90;
+				 var gender_text_top_y = 60;
+				 var gender_text_bot_y = 110;
+				 d3.select("#male_svg").append("text")
+						.attr("id","gender_text_1")
+						.text("~52%")
+						.attr("class","inplot_text")
+						.attr("font-size", 30)
+						.attr("x", gender_text_x)
+						.attr("y", gender_text_top_y - 25)
+						.attr("stroke-width", 1);
+
+				d3.select("#male_svg").append("text")
+					 .text("< 7 days")
+					 .attr("x", gender_text_x+5)
+					 .attr("y", gender_text_top_y);
+
+				d3.select("#male_svg").append("text")
+							.attr("id","gender_text_2")
+							.text("~20%")
+							.attr("class","inplot_text")
+							.attr("font-size", 30)
+							.attr("x", gender_text_x)
+							.attr("y", gender_text_bot_y)
+							.attr("stroke-width", 1);
+
+			d3.select("#male_svg").append("text")
+						 .text("> 24 days")
+						 .attr("x", gender_text_x+5)
+						 .attr("y", gender_text_bot_y + 25);
+
+			var hor_line_y = 125*0.52+12;
+
+
+
+			d3.select("#male_svg").append("line")
+			.attr("x1", gender_text_x + 60).attr("y1", hor_line_y)
+			.attr("x2", gender_text_x + 60).attr("y2", gender_text_top_y - 50)
+			.attr("stroke", "black").attr("stroke-width", 1);
+
+			d3.select("#male_svg").append("line")
+			.attr("x1", gender_text_x + 60 + 3).attr("y1", hor_line_y)
+			.attr("x2", gender_text_x + 60 - 3).attr("y2", hor_line_y)
+			.attr("stroke", "black").attr("stroke-width", 1);
+
+			d3.select("#male_svg").append("line")
+			.attr("x1", gender_text_x + 60 + 3).attr("y1", gender_text_top_y - 50)
+			.attr("x2", gender_text_x + 60 - 3).attr("y2", gender_text_top_y - 50)
+			.attr("stroke", "black").attr("stroke-width", 1);
+
+
+
+			var hor_line_y = 125*0.8+12;
+
+			d3.select("#male_svg").append("line")
+			.attr("x1", gender_text_x ).attr("y1", hor_line_y)
+			.attr("x2", gender_text_x).attr("y2", 136)
+			.attr("stroke", "black").attr("stroke-width", 1);
+
+			d3.select("#male_svg").append("line")
+			.attr("x1", gender_text_x + 3).attr("y1", hor_line_y)
+			.attr("x2", gender_text_x - 3).attr("y2", hor_line_y)
+			.attr("stroke", "black").attr("stroke-width", 1);
+
+			d3.select("#male_svg").append("line")
+			.attr("x1", gender_text_x + 3).attr("y1", 136)
+			.attr("x2", gender_text_x - 3).attr("y2", 136)
+			.attr("stroke", "black").attr("stroke-width", 1);
+
+
+			// add comments for drinker
+			var gender_text_x = 100;
+			// var gender_text_top_y = 60;
+			// var gender_text_bot_y = 110;
+
+
+			d3.select("#healthy_svg").append("text")
+				 .attr("id","drinker_text_1")
+				 .text("~56%")
+				 .attr("class","inplot_text")
+				 .attr("font-size", 30)
+				 .attr("x", gender_text_x)
+				 .attr("y", gender_text_top_y - 25)
+				 .attr("stroke-width", 1);
+
+		 d3.select("#healthy_svg").append("text")
+				.text("< 7 days")
+				.attr("x", gender_text_x+5)
+				.attr("y", gender_text_top_y);
+
+		 d3.select("#healthy_svg").append("text")
+					 .attr("id","drinker_text_2")
+					 .text("~16%")
+					 .attr("class","inplot_text")
+					 .attr("font-size", 30)
+					 .attr("x", gender_text_x)
+					 .attr("y", gender_text_bot_y)
+					 .attr("stroke-width", 1);
+
+	 d3.select("#healthy_svg").append("text")
+					.text("> 24 days")
+					.attr("x", gender_text_x+5)
+					.attr("y", gender_text_bot_y + 25);
+
+	 var hor_line_y = 125*0.56+12;
+
+
+	 d3.select("#healthy_svg").append("line")
+	 .attr("x1", gender_text_x + 60).attr("y1", hor_line_y)
+	 .attr("x2", gender_text_x + 60).attr("y2", gender_text_top_y - 50)
+	 .attr("stroke", "black").attr("stroke-width", 1);
+
+	 d3.select("#healthy_svg").append("line")
+	 .attr("x1", gender_text_x + 60 + 3).attr("y1", hor_line_y)
+	 .attr("x2", gender_text_x + 60 - 3).attr("y2", hor_line_y)
+	 .attr("stroke", "black").attr("stroke-width", 1);
+
+	 d3.select("#healthy_svg").append("line")
+	 .attr("x1", gender_text_x + 60 + 3).attr("y1", gender_text_top_y - 50)
+	 .attr("x2", gender_text_x + 60 - 3).attr("y2", gender_text_top_y - 50)
+	 .attr("stroke", "black").attr("stroke-width", 1);
+
+
+
+
+	 var hor_line_y = 125*0.84+12;
+
+
+	 d3.select("#healthy_svg").append("line")
+	 .attr("x1", gender_text_x ).attr("y1", hor_line_y)
+	 .attr("x2", gender_text_x).attr("y2", 136)
+	 .attr("stroke", "black").attr("stroke-width", 1);
+
+	 d3.select("#healthy_svg").append("line")
+	 .attr("x1", gender_text_x + 3).attr("y1", hor_line_y)
+	 .attr("x2", gender_text_x - 3).attr("y2", hor_line_y)
+	 .attr("stroke", "black").attr("stroke-width", 1);
+
+	 d3.select("#healthy_svg").append("line")
+	 .attr("x1", gender_text_x + 3).attr("y1", 136)
+	 .attr("x2", gender_text_x - 3).attr("y2", 136)
+	 .attr("stroke", "black").attr("stroke-width", 1);
+
+
+
+	 // add comments for smoker+both
+	 var gender_text_x = 85;
+
+
+	 d3.select("#smk_svg").append("text")
+			.attr("id","smoker_text_1")
+			.text("35-36%")
+			.attr("class","inplot_text")
+			.attr("font-size", 30)
+			.attr("x", gender_text_x)
+			.attr("y", gender_text_top_y - 25)
+			.attr("stroke-width", 1);
+
+	d3.select("#smk_svg").append("text")
+		 .text("< 7 days")
+		 .attr("x", gender_text_x+5)
+		 .attr("y", gender_text_top_y);
+
+	d3.select("#smk_svg").append("text")
+				.attr("id","smoker_text_2")
+				.text("30-31%")
+				.attr("class","inplot_text")
+				.attr("font-size", 30)
+				.attr("x", gender_text_x + 5)
+				.attr("y", gender_text_bot_y)
+				.attr("stroke-width", 1);
+
+d3.select("#smk_svg").append("text")
+			 .text("> 24 days")
+			 .attr("x", gender_text_x+10)
+			 .attr("y", gender_text_bot_y + 25);
+
+var hor_line_y = 125*0.36+12;
+
+d3.select("#smk_svg").append("line")
+.attr("x1", gender_text_x + 80).attr("y1", hor_line_y)
+.attr("x2", gender_text_x + 80).attr("y2", gender_text_top_y - 50)
+.attr("stroke", "black").attr("stroke-width", 1);
+
+d3.select("#smk_svg").append("line")
+.attr("x1", gender_text_x + 80 + 3).attr("y1", hor_line_y)
+.attr("x2", gender_text_x + 80 - 3).attr("y2", hor_line_y)
+.attr("stroke", "black").attr("stroke-width", 1);
+
+d3.select("#smk_svg").append("line")
+.attr("x1", gender_text_x + 80 + 3).attr("y1", gender_text_top_y - 50)
+.attr("x2", gender_text_x + 80 - 3).attr("y2", gender_text_top_y - 50)
+.attr("stroke", "black").attr("stroke-width", 1);
+
+
+var hor_line_y = 125*0.70+12;
+
+
+d3.select("#smk_svg").append("line")
+.attr("x1", gender_text_x ).attr("y1", hor_line_y)
+.attr("x2", gender_text_x).attr("y2", 136)
+.attr("stroke", "black").attr("stroke-width", 1);
+
+d3.select("#smk_svg").append("line")
+.attr("x1", gender_text_x + 3).attr("y1", hor_line_y)
+.attr("x2", gender_text_x - 3).attr("y2", hor_line_y)
+.attr("stroke", "black").attr("stroke-width", 1);
+
+d3.select("#smk_svg").append("line")
+.attr("x1", gender_text_x + 3).attr("y1", 136)
+.attr("x2", gender_text_x - 3).attr("y2", 136)
+.attr("stroke", "black").attr("stroke-width", 1);
+
+
+var gender_text_svg = d3.select("#icons_div").append("svg").
+attr("width", "300").
+attr("height", "205").
+attr("id", "gender_text_svg");
+
+gender_text_svg.append("text")
+						 			 			 .text("The percentage is represented by the ").attr("x", 10).attr("y", 25);
+gender_text_svg.append("text")
+.text("height")
+.attr("font-size","25")
+.attr("class","inplot_text").attr("x", 205).attr("y", 25);
+// gender_text_svg.append("text")
+// 						 			 			 .text("of bars.").attr("x", 250).attr("y", 25);
+
+gender_text_svg.append("text")
+			 .text("of bars. For two gender groups, the percentage")
+			 .attr("x", 10).attr("y", 50);
+gender_text_svg.append("text")
+			 			 .text(" of each category of days not mentally good is almost").attr("x", 10).attr("y", 75);
+
+gender_text_svg.append("text")
+						 .text("the same.").attr("class","inplot_text").attr("x", 10).attr("y", 100).attr("font-size","25");
+
+
+d3.select("#habit_explain").append("text")
+			 .text("The usage of alcohol surprisingly does not have a strong correlation to people's mental health.")
+			 .attr("x", 10).attr("y", 15);
+
+d3.select("#habit_explain").append("text")
+			 	.text("However, the usage of tobacco shows a significant negative impact.")
+			 	.attr("x", 10).attr("y", 40);
+
+		</script>
+
+
+		</body>
+		</html>
